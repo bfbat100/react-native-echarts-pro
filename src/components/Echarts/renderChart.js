@@ -17,6 +17,10 @@ export default function renderChart(props) {
     echarts.registerMap('world', ${JSON.stringify(worldJson)});
     const myChart = echarts.init(eChartsContainer, '${props.themeName}');
     let formatterVariable = ${toString(props.formatterVariable || "")};
+    // 图表外部点击事件，可和图表内的mousedown事件区分开
+    myChart.getZr().on('click',(params)=>{
+      window.ReactNativeWebView.postMessage(JSON.stringify({type:'outsideClick',params}));
+    })
     let clickName = {}
     myChart.on('mousedown', (params)=>{
       clickName = {
@@ -30,7 +34,7 @@ export default function renderChart(props) {
       }, 100)
     });
     myChart.on('dataZoom', (params)=>{
-        window.ReactNativeWebView.postMessage(JSON.stringify({type:params.type}));
+        window.ReactNativeWebView.postMessage(JSON.stringify({type:params.type,params}));
     });
     myChart.on('legendselectchanged', (params)=>{
         window.ReactNativeWebView.postMessage(JSON.stringify({type: params.type,name:params.name}));
