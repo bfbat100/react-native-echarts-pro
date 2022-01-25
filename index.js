@@ -22,7 +22,7 @@ function APP(props, ref) {
     }
   }));
   return (
-    <Container width={props.width}>
+    <Container width={props.width} containerPress={props.containerPress}>
       <Echarts {...props} ref={chartRef} />
     </Container>
   );

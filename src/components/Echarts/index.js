@@ -9,7 +9,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { View, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform,TouchableOpacity } from "react-native";
 import WebView from "react-native-webview";
 import renderChart from "./renderChart";
 import HtmlWeb from "../Utils/HtmlWeb";
@@ -75,7 +75,7 @@ function Echarts(props, ref) {
   }, [props.extension]);
 
   return (
-    <View style={{ flex: 1, height: props.height || 400 }}>
+    <TouchableOpacity activeOpacity={1} style={{ flex: 1, height: props.height || 400, }}>
       <WebView
         textZoom={100}
         scrollEnabled={true}
@@ -91,7 +91,7 @@ function Echarts(props, ref) {
         source={{ html: `${HtmlWeb} ${extensionScript}` }}
         onMessage={onMessage}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 
